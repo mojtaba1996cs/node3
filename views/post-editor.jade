@@ -1,0 +1,18 @@
+extends _layout
+block content
+    - var editMode = post && post.id
+    h2 #{editMode ? "تعديل التّدوينة" : "تدوينة جديدة" }
+    form(action= editMode ? ("/posts/" + post.slug + "?_method=PUT") : "/posts", method="POST")
+bash: line 1: 14: command not found
+        label(for="title") عنوان التدوينة: 
+        input(type="text", name="title", required, value= editMode ? post.title : "")
+        br
+        if !editMode
+            label(for="slug") الرابط الفرعي: 
+            input(type="text", name="slug" required)
+            br
+            label(for="body") نص التّدوينة: 
+            textarea(name="body") #{ editMode ? post.body : "" }
+            br
+            input(type="submit", value="أرسل التّدوينة")
+       
